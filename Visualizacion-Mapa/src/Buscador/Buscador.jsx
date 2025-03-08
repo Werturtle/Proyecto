@@ -31,9 +31,9 @@ const Buscador = () => {
   const [codigoPais, setCodigoPais] = useState('');
   const [palabraClave, setPalabraClave] = useState('');
   
-
+  const envURL = import.meta.env.VITE_BACKEND_URL;
   const buscarInstituciones = async () => {
-    const url = `http://127.0.0.1:5000/buscar?codigo_pais=${codigoPais}&palabra_clave=${palabraClave}`;
+    const url = `${envURL}/buscar?codigo_pais=${codigoPais}&palabra_clave=${palabraClave}`;
     const response = await fetch(url);
     const data = await response.json();
     setMapCenter(paises[codigoPais]);
