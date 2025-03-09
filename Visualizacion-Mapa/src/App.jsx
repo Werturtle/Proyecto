@@ -15,6 +15,7 @@ function App() {
   return (
     <>
       <div className="app-container ">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4">Buscador IA latinoamerica </h1>
         <Buscador />
           <div className="flex flex-row">
             <MapaLeaflet  className="basis-1/2 "/>

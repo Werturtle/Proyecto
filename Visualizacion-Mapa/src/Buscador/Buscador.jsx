@@ -46,7 +46,6 @@ const Buscador = () => {
 
   return (
     <div className="p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">Buscador de Instituciones</h1>
       <div className="space-y-4">
         {/* Selector de país */}
         <div>
