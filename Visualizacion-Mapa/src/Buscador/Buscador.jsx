@@ -45,32 +45,52 @@ const Buscador = () => {
   };
 
   return (
-    <div>
-      <h1>Buscador de Instituciones</h1>
-      <div>
-        <label htmlFor="paises">Selecciona un país:</label>
-        <select
-          id="paises"
-          value={codigoPais}
-          onChange={(e) => setCodigoPais(e.target.value)}
+    <div className="p-6 bg-white shadow-md rounded-lg">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4">Buscador de Instituciones</h1>
+      <div className="space-y-4">
+        {/* Selector de país */}
+        <div>
+          <label htmlFor="paises" className="block text-sm font-medium text-gray-700">
+            Selecciona un país:
+          </label>
+          <select
+            id="paises"
+            value={codigoPais}
+            onChange={(e) => setCodigoPais(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">-- Selecciona un país --</option>
+            {Object.entries(paises).map(([codigo, { nombre }]) => (
+              <option key={codigo} value={codigo}>
+                {nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Campo de palabra clave */}
+        <div>
+          <label htmlFor="palabraClave" className="block text-sm font-medium text-gray-700">
+            Palabra clave:
+          </label>
+          <input
+            type="text"
+            id="palabraClave"
+            placeholder="Ej. Medicina"
+            value={palabraClave}
+            onChange={(e) => setPalabraClave(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        {/* Botón de búsqueda */}
+        <button
+          onClick={buscarInstituciones}
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          <option value="">-- Selecciona un país --</option>
-          {Object.entries(paises).map(([codigo, { nombre }]) => (
-            <option key={codigo} value={codigo}>
-              {nombre}
-            </option>
-          ))}
-        </select>
+          Buscar
+        </button>
       </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Palabra clave (ej. Medicina)"
-          value={palabraClave}
-          onChange={(e) => setPalabraClave(e.target.value)}
-        />
-      </div>
-      <button onClick={buscarInstituciones}>Buscar</button>
     </div>
   );
 };
