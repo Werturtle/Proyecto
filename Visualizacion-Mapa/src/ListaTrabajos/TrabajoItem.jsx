@@ -12,7 +12,21 @@ const TrabajoItem = ({ trabajo }) => {
       {/* Versión resumida */}
       <div className="cursor-pointer" onClick={toggleExpandido}>
         <h3 className="text-lg font-semibold">{trabajo['Titulo de la obra']}</h3>
-        <p className="mt-2"><strong>Autores:</strong> {trabajo.Autores.map(([id, nombre]) => `${nombre} (${id})`).join(', ')}</p>
+        <p className="mt-2">
+          <strong>Autores:</strong>{' '}
+          {trabajo.Autores.map(([id, nombre]) => (
+            <a
+              key={id} // Usamos la id como clave única
+              href={id} // La id es el enlace a OpenAlex
+              target="_blank" // Abrir en una nueva pestaña
+              rel="noopener noreferrer" // Mejora la seguridad
+              className="text-blue-500 hover:underline"
+              onClick={(e) => e.stopPropagation()} // Evitar que el clic expanda el trabajo
+            >
+              {nombre}
+            </a>
+          )).reduce((prev, curr) => [prev, ', ', curr])} {/* Separar autores con comas */}
+        </p>
         {!expandido && (
           <button className="mt-2 text-blue-500 hover:underline">
             Ver más detalles
@@ -23,10 +37,21 @@ const TrabajoItem = ({ trabajo }) => {
       {/* Versión expandida */}
       {expandido && (
         <div className="mt-4">
-          <p className="mt-2"><strong>Instituciones:</strong> {Object.values(trabajo.Instituciones).map(([nombre, pais]) => `${nombre} (${pais})`).join(', ')}</p>
-          <p className="mt-2"><strong>Año:</strong> {trabajo.Año}</p>
-          <p className="mt-2"><strong>Número de citas:</strong> {trabajo['Numero de papers']}</p>
-          <p className="mt-2"><strong>Número de instituciones:</strong> {trabajo['Numero de instituciones']}</p>
+          <p className="mt-2">
+            <strong>Instituciones:</strong>{' '}
+            {Object.values(trabajo.Instituciones)
+              .map(([nombre, pais]) => `${nombre} (${pais})`)
+              .join(', ')}
+          </p>
+          <p className="mt-2">
+            <strong>Año:</strong> {trabajo.Año}
+          </p>
+          <p className="mt-2">
+            <strong>Número de citas:</strong> {trabajo['Numero de papers']}
+          </p>
+          <p className="mt-2">
+            <strong>Número de instituciones:</strong> {trabajo['Numero de instituciones']}
+          </p>
           <button
             onClick={toggleExpandido}
             className="mt-2 text-blue-500 hover:underline"
