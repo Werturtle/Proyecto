@@ -2,10 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { InstitucionesContext } from '../context/InstitucionesContext';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import icono from "./pngegg.png"
 
 const MapaLeaflet = () => {
   const { instituciones, setInstitucionSeleccionada } = useContext(InstitucionesContext);
   const { mapCenter, setMapCenter } = useContext(InstitucionesContext);
+ 
+  // informacion para peronalizar icono de marcadores
+  var myIcon = L.icon({
+    iconUrl: icono,
+    iconSize: [30, 30],
+    popupAnchor: [-3, -76],
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
 
   useEffect(() => {
     if (instituciones && Object.keys(instituciones).length > 0) {
@@ -30,7 +40,7 @@ const MapaLeaflet = () => {
           `;
 
           // Crear el marcador y agregar el tooltip
-          const marker = L.marker([lat, lng]).addTo(map);
+          const marker = L.marker([lat, lng],{icon:myIcon}).addTo(map);
           marker.bindTooltip(tooltipContent, { permanent: false, direction: 'top' });
 
           // Evento al hacer clic en el marcador
